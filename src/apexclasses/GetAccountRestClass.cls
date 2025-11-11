@@ -28,7 +28,7 @@ global with sharing class GetAccountRestClass {
                                           VAT_Number__c,Credit_terms__c,Is_Distributor__c,ParentId,Parent.Is_Distributor__c,Parent.Credit_terms__c
                                           From Account Where Id =:CustomerId];
                 if(!accountsList.isEmpty()) {
-                    String firstName = accountsList[0].Primary_Contact__c != null? accountsList[0].Primary_Contact__c.split(' ')[0]:'';
+                    String firstName = accountsList[0].Primary_Contact__c != null? accountsList[0].Primary_Contact__c.split(' ')[0].trim():'';
                     String lastName = accountsList[0].Primary_Contact__c != null? accountsList[0].Primary_Contact__c.split(' ')[1]:''; 
                     String creditTerms = '';
                     
