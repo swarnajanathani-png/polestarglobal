@@ -28,8 +28,20 @@ global with sharing class GetAccountRestClass {
                                           VAT_Number__c,Credit_terms__c,Is_Distributor__c,ParentId,Parent.Is_Distributor__c,Parent.Credit_terms__c
                                           From Account Where Id =:CustomerId];
                 if(!accountsList.isEmpty()) {
-                    String firstName = accountsList[0].Primary_Contact__c != null? accountsList[0].Primary_Contact__c.split(' ')[0].trim():'';
-                    String lastName = accountsList[0].Primary_Contact__c != null? accountsList[0].Primary_Contact__c.split(' ')[1]:''; 
+                    List<String> primaryContactName = new List<String>();
+                    String firstName = null;
+                    String lastName = null;
+                    if(accountsList[0].Primary_Contact__c != null){
+                        primaryContactName = accountsList[0].Primary_Contact__c.replaceAll('\\s+', ' ').trim().split(' ');
+                    }
+                    if(primaryContactName.size() >= 2) {
+                    	firstName =  primaryContactName[0];
+                        lastName = primaryContactName[1];
+                    }
+                    else if(primaryContactName.size() == 1) {
+                    	firstName =  primaryContactName[0];    
+                    }
+                    
                     String creditTerms = '';
                     
                     if(accountsList[0].ParentId != null && accountsList[0].Parent.Is_Distributor__c == true) {

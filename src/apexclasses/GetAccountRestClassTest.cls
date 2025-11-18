@@ -23,6 +23,7 @@ public class GetAccountRestClassTest{
         acc.Name = 'Test';
         acc.BillingCountry = 'United Kingdom';
         acc.Lead_Source__c = 'Email';
+        acc.Line_of_Business__c = 'Commercial Marine';
         insert acc;
         // Initialize Rest Context
         RestRequest req = new RestRequest();
