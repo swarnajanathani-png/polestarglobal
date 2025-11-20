@@ -22,6 +22,7 @@ public class CancelHardwareOpportunityTest {
         acc.Name = 'Test';
         acc.BillingCountry = 'United Kingdom';
         acc.Lead_Source__c = 'Self Service Portal';
+        acc.Line_of_Business__c = 'Commercial Marine';
         insert acc;
         
         Opportunity opp = new Opportunity();
