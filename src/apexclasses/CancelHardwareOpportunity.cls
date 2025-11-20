@@ -20,6 +20,7 @@ global with sharing class CancelHardwareOpportunity {
        		oppdata = (Map<String, Object>) JSON.deserializeUntyped(JSON.serialize(opp));
             pson = (String) oppdata.get('PSON');
             String cancelReason = (String) oppdata.get('CancelReason');
+            String additionalDetails = (String) oppdata.get('AdditionalDetails');
             
             List<Opportunity> listOpportunity = [Select Id,AccountId,StageName,Service_PSON__c from Opportunity where Service_PSON__c=:pson];
             if(!listOpportunity.isEmpty()){
@@ -28,7 +29,12 @@ global with sharing class CancelHardwareOpportunity {
                 for(Opportunity oppor : listOpportunity){
                 	oppor.StageName = 'Closed Lost';
                     oppor.Stage_Reason__c  = cancelReason;
-                    oppor.LostAbort_Details__c = cancelReason;
+                    if(String.isNotBlank(additionalDetails)) {
+                    	oppor.LostAbort_Details__c = additionalDetails;
+                    }
+                    else {
+                    	oppor.LostAbort_Details__c = cancelReason;    
+                    }
                     
                 }
                 
